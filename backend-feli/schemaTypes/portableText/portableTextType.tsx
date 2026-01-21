@@ -45,8 +45,6 @@ export const portableTextType = defineField({
     defineArrayMember({ type: 'callout' }),
     defineArrayMember({ type: 'grid' }),
     defineArrayMember({ type: 'images' }),
-    defineArrayMember({ type: 'imageWithProductHotspots', title: 'Image with Hotspots' }),
     defineArrayMember({ type: 'instagram' }),
-    defineArrayMember({ type: 'products' }),
   ],
 })

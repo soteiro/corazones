@@ -6,10 +6,6 @@ export const menuLinksType = defineField({
   type: 'array',
   of: [
     defineField({
-      name: 'collectionGroup',
-      type: 'collectionGroup',
-    }),
-    defineField({
       name: 'linkInternal',
       type: 'linkInternal',
     }),

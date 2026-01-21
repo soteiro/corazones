@@ -5,8 +5,6 @@ const VARIANTS = [
   {title: 'Simple', value: undefined},
   {title: 'Caption', value: 'caption'},
   {title: 'Call to action', value: 'callToAction'},
-  {title: 'Product hotspots', value: 'productHotspots'},
-  {title: 'Product tags', value: 'productTags'},
 ]
 
 export const imageFeatureType = defineField({
@@ -41,24 +39,6 @@ export const imageFeatureType = defineField({
       name: 'callToAction',
       type: 'imageCallToAction',
       hidden: ({parent}) => parent.variant !== 'callToAction',
-    }),
-    defineField({
-      name: 'productHotspots',
-      title: 'Hotspots',
-      type: 'productHotspots',
-      hidden: ({parent}) => parent.variant !== 'productHotspots',
-    }),
-    defineField({
-      name: 'productTags',
-      title: 'Products',
-      type: 'array',
-      hidden: ({parent}) => parent.variant !== 'productTags',
-      of: [
-        defineField({
-          name: 'productWithVariant',
-          type: 'productWithVariant',
-        }),
-      ],
     }),
   ],
   preview: {

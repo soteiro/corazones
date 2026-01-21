@@ -15,7 +15,7 @@ const devOnlyPlugins = [visionTool()]
 
 export default defineConfig({
   name: 'default',
-  title: 'backend-feli',
+  title: 'Sueños Abrigados',
 
   projectId: 'qsk5q0dj',
   dataset: 'production',
@@ -31,6 +31,82 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+  },
+
+  theme: {
+    colors: {
+      default: {
+        base: {
+          bg: '#fef9f5', // Beige cálido suave
+          fg: '#2c1810', // Marrón oscuro para texto
+          border: '#e8d4c4', // Beige más oscuro para bordes
+          focusRing: '#d4896b', // Terracota suave para focus
+          shadow: {
+            outline: 'rgba(212, 137, 107, 0.5)',
+            umbra: 'rgba(44, 24, 16, 0.2)',
+            penumbra: 'rgba(44, 24, 16, 0.14)',
+            ambient: 'rgba(44, 24, 16, 0.12)',
+          },
+        },
+        // Color primario - Terracota/Rosa viejo
+        primary: {
+          enabled: {
+            bg: '#d4896b',
+            fg: '#ffffff',
+            border: '#c07456',
+          },
+          hovered: {
+            bg: '#c07456',
+            fg: '#ffffff',
+            border: '#a96348',
+          },
+          pressed: {
+            bg: '#a96348',
+            fg: '#ffffff',
+            border: '#945539',
+          },
+          selected: {
+            bg: '#d4896b',
+            fg: '#ffffff',
+            border: '#c07456',
+          },
+          disabled: {
+            bg: '#e8d4c4',
+            fg: '#9b8577',
+            border: '#d4c2b4',
+          },
+        },
+        // Color positivo - Verde suave natural
+        positive: {
+          enabled: {
+            bg: '#8ba888',
+            fg: '#ffffff',
+            border: '#7a9677',
+          },
+          hovered: {
+            bg: '#7a9677',
+            fg: '#ffffff',
+            border: '#6a8466',
+          },
+        },
+        // Color de advertencia - Mostaza suave
+        caution: {
+          enabled: {
+            bg: '#d4a76b',
+            fg: '#ffffff',
+            border: '#c09456',
+          },
+        },
+        // Color crítico - Rosa oscuro
+        critical: {
+          enabled: {
+            bg: '#c47a6b',
+            fg: '#ffffff',
+            border: '#b06856',
+          },
+        },
+      },
+    },
   },
 
   form: {
@@ -49,6 +125,18 @@ export default defineConfig({
   studio: {
     components: {
       navbar: Navbar,
+    },
+  },
+
+  document: {
+    // Configurar nombres más amigables para los documentos
+    newDocumentOptions: (prev, {creationContext}) => {
+      if (creationContext.type === 'global') {
+        return prev.filter(
+          (templateItem) => !['settings', 'home', 'sobreMi', 'configuracion'].includes(templateItem.templateId)
+        )
+      }
+      return prev
     },
   },
 })

@@ -27,12 +27,9 @@ export const heroType = defineField({
       validation: (Rule) => Rule.max(1),
       of: [
         defineArrayMember({
-          name: 'productWithVariant',
-          type: 'productWithVariant',
-        }),
-        defineArrayMember({
-          name: 'imageWithProductHotspots',
-          type: 'imageWithProductHotspots',
+          name: 'image',
+          type: 'image',
+          options: {hotspot: true},
         }),
       ],
     }),

@@ -1,18 +1,19 @@
 import {ListItemBuilder, StructureResolver} from 'sanity/structure';
-import collections from './collectionStructure'
+import categorias from './categoriaStructure'
 import colorThemes from './colorThemeStructure'
+import configuracion from './configuracionStructure'
 import home from './homeStructure'
 import pages from './pageStructure'
-import products from './productStructure'
+import productos from './productoStructure'
 import settings from './settingStructure'
+import sobreMi from './sobreMiStructure'
 
 /**
  * Structure overrides
  *
  * Sanity Studio automatically lists document types out of the box.
  * With this custom structure we achieve things like showing the `home`
- * and `settings` document types as singletons, and grouping product details
- * and variants for easy editorial access.
+ * and `settings` document types as singletons.
  *
  * You can customize this even further as your schema types progress.
  * To learn more about structure builder, visit our docs:
@@ -28,29 +29,32 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
   }
 
   return ![
-    'collection',
+    'categoria',
     'colorTheme',
+    'configuracion',
     'home',
     'media.tag',
     'page',
-    'product',
-    'productVariant',
+    'producto',
     'settings',
+    'sobreMi',
   ].includes(id)
 }
 
 export const structure: StructureResolver = (S, context) =>
   S.list()
-    .title('Content')
+    .title('Contenido')
     .items([
       home(S, context),
+      S.divider(),
+      productos(S, context),
+      categorias(S, context),
+      S.divider(),
       pages(S, context),
+      sobreMi(S, context),
       S.divider(),
-      collections(S, context),
-      products(S, context),
-      S.divider(),
+      configuracion(S, context),
       colorThemes(S, context),
-      S.divider(),
       settings(S, context),
       S.divider(),
       ...S.documentTypeListItems().filter(hiddenDocTypes),

@@ -22,39 +22,21 @@ export const linkProductType = defineField({
   },
   fields: [
     defineField({
-      name: 'productWithVariant',
-      type: 'productWithVariant',
+      name: 'product',
+      title: 'Producto',
+      type: 'reference',
+      to: [{type: 'producto'}],
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'linkAction',
-      type: 'string',
-      initialValue: 'link',
-      options: {
-        layout: 'radio',
-        list: [
-          {
-            title: 'Navigate to product',
-            value: 'link',
-          },
-          {
-            title: 'Add to cart',
-            value: 'addToCart',
-          },
-          {
-            title: 'Buy now',
-            value: 'buyNow',
-          },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'quantity',
-      type: 'number',
-      initialValue: 1,
-      hidden: ({parent}) => parent.linkAction === 'link',
-      validation: (Rule) => Rule.required().min(1).max(10),
     }),
   ],
+  preview: {
+    select: {
+      productName: 'product.nombre',
+    },
+    prepare({productName}) {
+      return {
+        title: productName || 'Producto',
+      }
+    },
+  },
 })

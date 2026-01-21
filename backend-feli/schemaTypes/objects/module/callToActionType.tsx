@@ -62,11 +62,6 @@ export const callToActionType = defineField({
           type: 'image',
           options: {hotspot: true},
         }),
-        defineArrayMember({
-          name: 'productWithVariant',
-          type: 'productWithVariant',
-          validation: (Rule) => Rule.required(),
-        }),
       ],
     }),
   ],

@@ -17,18 +17,6 @@ export const notFoundPageType = defineField({
       rows: 2,
     }),
     defineField({
-      name: 'collection',
-      type: 'reference',
-      description: 'Collection products displayed on this page',
-      weak: true,
-      to: [
-        {
-          name: 'collection',
-          type: 'collection',
-        },
-      ],
-    }),
-    defineField({
       name: 'colorTheme',
       type: 'reference',
       to: [{type: 'colorTheme'}],
