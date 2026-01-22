@@ -1,0 +1,27 @@
+# Netlify configuration for Sanity Studio
+
+[build]
+  # Comando para construir el Studio
+  command = "pnpm install && pnpm sanity build"
+  
+  # Directorio con los archivos estáticos generados
+  publish = "dist"
+  
+  # Usar Node.js 18 o superior
+  [build.environment]
+    NODE_VERSION = "18"
+
+# Redirigir todas las rutas al index.html (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers de seguridad y CORS (opcional pero recomendado)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
