@@ -1,0 +1,59 @@
+---
+// Componente Header/Navigation - Navegación principal con menú móvil
+---
+
+<nav class="sticky top-0 z-50 bg-crudo/95 backdrop-blur-md border-b border-gris/20 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center md:hidden">
+                <button type="button" id="mobile-menu-btn" class="text-marron hover:text-turquesa transition p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center justify-center md:justify-start w-full md:w-auto">
+                <a href="/" class="flex flex-col items-center md:items-start group">
+                    <span class="font-script text-3xl text-marron group-hover:text-turquesa transition duration-300">Corazones Abrigados</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-gris font-serif mt-[-5px]">Tejidos de la Patagonia</span>
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#historia" class="text-gray-700 hover:text-turquesa font-serif italic transition">Nuestra Historia</a>
+                <a href="#coleccion" class="text-gray-700 hover:text-turquesa font-serif italic transition">Colección</a>
+                <a href="#impacto" class="text-gray-700 hover:text-turquesa font-serif italic transition">Impacto</a>
+                <a href="#talleres" class="text-gray-700 hover:text-turquesa font-serif italic transition">Talleres</a>
+            </div>
+
+            <!-- Icons -->
+            <div class="hidden md:flex items-center space-x-5 text-marron">
+                <button class="hover:text-turquesa transition"><i data-lucide="search" class="w-5 h-5"></i></button>
+                <button class="hover:text-turquesa transition relative">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span class="absolute -top-1 -right-2 bg-turquesa text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Cart Icon (visible on mobile) -->
+            <div class="flex md:hidden items-center pr-2">
+                <button class="text-marron relative">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span class="absolute -top-1 -right-2 bg-turquesa text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu" class="hidden md:hidden bg-crudo border-t border-gray-200 absolute w-full shadow-lg">
+        <div class="px-4 pt-4 pb-6 space-y-3 text-center">
+            <a href="#historia" class="block text-marron font-serif text-lg py-2 hover:bg-lavanda/30 rounded">Nuestra Historia</a>
+            <a href="#coleccion" class="block text-marron font-serif text-lg py-2 hover:bg-lavanda/30 rounded">Colección</a>
+            <a href="#impacto" class="block text-marron font-serif text-lg py-2 hover:bg-lavanda/30 rounded">Impacto</a>
+            <a href="#talleres" class="block text-marron font-serif text-lg py-2 hover:bg-lavanda/30 rounded">Talleres</a>
+        </div>
+    </div>
+</nav>

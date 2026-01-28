@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazones Abrigados | Tejidos con Alma Patagónica</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration for Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            crudo: '#F9F7F2',       // Crudo/Marfil
+                            lavanda: '#E6E6FA',     // Lavanda Suave
+                            turquesa: '#2C8C99',    // Turquesa Patagónico (Ajustado para contraste)
+                            verde: '#5D7052',       // Verde Lenga
+                            marron: '#8B5A2B',      // Marrón Tierra
+                            gris: '#708090',        // Gris Piedra
+                            text: '#4A4A4A'         // Texto general suave
+                        }
+                    },
+                    fontFamily: {
+                        script: ['"Dancing Script"', 'cursive'],
+                        serif: ['"Lora"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1621245656752-16632483569c?q=80&w=1920&auto=format&fit=crop')",
+                        'texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')" // Textura sutil de papel
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para suavidad y texturas */
+        body {
+            background-color: #F9F7F2;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png'); 
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9F7F2; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8B5A2B; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-text antialiased overflow-x-hidden">
+
+    <!-- Promo Bar -->
+    <div class="bg-brand-verde text-brand-crudo text-xs md:text-sm text-center py-2 font-medium tracking-wide">
+        Envíos a todo Chile desde la Patagonia 🌿 | Un regalo con sentido
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-brand-crudo/95 backdrop-blur-md border-b border-brand-gris/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="text-brand-marron hover:text-brand-turquesa transition p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center justify-center md:justify-start w-full md:w-auto">
+                    <a href="#" class="flex flex-col items-center md:items-start group">
+                        <span class="font-script text-3xl text-brand-marron group-hover:text-brand-turquesa transition duration-300">Corazones Abrigados</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-brand-gris font-serif mt-[-5px]">Tejidos de la Patagonia</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#historia" class="text-brand-text hover:text-brand-turquesa font-serif italic transition">Nuestra Historia</a>
+                    <a href="#coleccion" class="text-brand-text hover:text-brand-turquesa font-serif italic transition">Colección</a>
+                    <a href="#impacto" class="text-brand-text hover:text-brand-turquesa font-serif italic transition">Impacto</a>
+                    <a href="#talleres" class="text-brand-text hover:text-brand-turquesa font-serif italic transition">Talleres</a>
+                </div>
+
+                <!-- Icons -->
+                <div class="hidden md:flex items-center space-x-5 text-brand-marron">
+                    <button class="hover:text-brand-turquesa transition"><i data-lucide="search" class="w-5 h-5"></i></button>
+                    <button class="hover:text-brand-turquesa transition relative">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span class="absolute -top-1 -right-2 bg-brand-turquesa text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                </div>
+                
+                 <!-- Mobile Cart Icon (visible on mobile) -->
+                 <div class="flex md:hidden items-center pr-2">
+                    <button class="text-brand-marron relative">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                         <span class="absolute -top-1 -right-2 bg-brand-turquesa text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-crudo border-t border-gray-200 absolute w-full shadow-lg">
+            <div class="px-4 pt-4 pb-6 space-y-3 text-center">
+                <a href="#historia" class="block text-brand-marron font-serif text-lg py-2 hover:bg-brand-lavanda/30 rounded">Nuestra Historia</a>
+                <a href="#coleccion" class="block text-brand-marron font-serif text-lg py-2 hover:bg-brand-lavanda/30 rounded">Colección</a>
+                <a href="#impacto" class="block text-brand-marron font-serif text-lg py-2 hover:bg-brand-lavanda/30 rounded">Impacto</a>
+                <a href="#talleres" class="block text-brand-marron font-serif text-lg py-2 hover:bg-brand-lavanda/30 rounded">Talleres</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1543851724-811c0393284a?q=80&w=1920&auto=format&fit=crop" alt="Mujer tejiendo en la Patagonia" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-gris/30 via-transparent to-brand-crudo/90"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in-up mt-20">
+            <p class="font-script text-3xl md:text-5xl text-white mb-4 drop-shadow-md">Un abrazo emocional</p>
+            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 drop-shadow-lg tracking-tight leading-tight">
+                Tejidos con Alma <br> de la Patagonia
+            </h1>
+            <p class="text-white/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto drop-shadow-md">
+                Entrelazamos historias, memorias y la energía de la naturaleza en cada punto. Hecho a mano en Coyhaique.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#coleccion" class="bg-brand-turquesa text-white px-8 py-3 rounded-full font-serif italic hover:bg-white hover:text-brand-turquesa transition duration-300 shadow-lg border-2 border-transparent hover:border-brand-turquesa">
+                    Explorar Colección
+                </a>
+                <a href="#historia" class="bg-white/20 backdrop-blur-sm text-white border-2 border-white px-8 py-3 rounded-full font-serif italic hover:bg-white hover:text-brand-marron transition duration-300">
+                    Nuestro Sueño
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Value Proposition / Impact Icons -->
+    <section class="py-16 bg-brand-crudo relative" id="impacto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                
+                <!-- Item 1 -->
+                <div class="group fade-in-up">
+                    <div class="w-16 h-16 mx-auto bg-brand-lavanda/40 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-turquesa/20 transition duration-300">
+                        <i data-lucide="heart-handshake" class="w-8 h-8 text-brand-marron"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-verde mb-3">Patrimonio Vivo</h3>
+                    <p class="text-sm text-brand-gris leading-relaxed px-4">
+                        Sostenemos lo hecho a mano revalorizando técnicas ancestrales fusionadas con diseño contemporáneo.
+                    </p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 mx-auto bg-brand-lavanda/40 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-turquesa/20 transition duration-300">
+                        <i data-lucide="users" class="w-8 h-8 text-brand-marron"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-verde mb-3">Comunidad</h3>
+                    <p class="text-sm text-brand-gris leading-relaxed px-4">
+                        Tejemos redes de apoyo entre mujeres y artesanos para un futuro sustentable y colaborativo.
+                    </p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 mx-auto bg-brand-lavanda/40 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-turquesa/20 transition duration-300">
+                        <i data-lucide="leaf" class="w-8 h-8 text-brand-marron"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-verde mb-3">Naturaleza</h3>
+                    <p class="text-sm text-brand-gris leading-relaxed px-4">
+                        Materiales nobles que llevan la energía de los bosques y montañas de Aysén en cada hilo.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrative Section (Split) -->
+    <section class="py-20 bg-white overflow-hidden" id="historia">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <!-- Image Grid -->
+                <div class="w-full lg:w-1/2 relative fade-in-up">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1618391786523-28f3103233c3?q=80&w=800&auto=format&fit=crop" alt="Detalle lana" class="rounded-tl-[3rem] rounded-br-[3rem] shadow-xl w-full h-64 object-cover transform translate-y-4">
+                        <img src="https://images.unsplash.com/photo-1596920272099-0d283ea0e74f?q=80&w=800&auto=format&fit=crop" alt="Paisaje Patagonia" class="rounded-tr-[3rem] rounded-bl-[3rem] shadow-xl w-full h-64 object-cover transform -translate-y-4">
+                    </div>
+                    <!-- Decorative Element -->
+                    <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-lavanda/20 rounded-full blur-3xl"></div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/2 fade-in-up">
+                    <span class="font-script text-3xl text-brand-turquesa block mb-2">Nuestra Visión</span>
+                    <h2 class="font-serif text-4xl text-brand-marron font-bold mb-6">Más que prendas, un refugio para el alma.</h2>
+                    <p class="text-brand-text mb-6 leading-relaxed">
+                        En <span class="font-serif italic text-brand-marron">Corazones Abrigados</span>, cada prenda es un símbolo de compañía frente al frío del sur. No solo buscamos abrigar el cuerpo, sino tejer un abrazo emocional que conecte a quien lo usa con la memoria de los ancestros y el cariño de las manos creadoras.
+                    </p>
+                    <p class="text-brand-text mb-8 leading-relaxed">
+                        Imaginamos nuestros cardiganes y gorros acompañando a mujeres y familias que buscan calor, estilo y sentido, llevando un pedacito de Coyhaique al mundo.
+                    </p>
+                    
+                    <div class="border-l-4 border-brand-turquesa pl-6 italic text-brand-gris mb-8">
+                        "Lo esencial está en el hilo invisible del cariño que nos conecta."
+                    </div>
+
+                    <a href="#" class="inline-flex items-center text-brand-marron font-serif font-bold hover:text-brand-turquesa transition underline decoration-brand-turquesa/50 hover:decoration-brand-turquesa decoration-2 underline-offset-4">
+                        Conoce a las artesanas <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase (Carousel concept) -->
+    <section class="py-24 bg-brand-crudo relative" id="coleccion">
+        <div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
+            <span class="font-script text-3xl text-brand-verde">Favoritos del Sur</span>
+            <h2 class="font-serif text-4xl text-brand-marron mt-2">Abrigo con Identidad</h2>
+            <p class="text-brand-gris mt-4">Piezas únicas creadas con lana natural y diseños contemporáneos.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="group relative fade-in-up">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1598528739190-6715f5c40047?q=80&w=600&auto=format&fit=crop" alt="Cardigan Lenga" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center pb-8 bg-gradient-to-t from-black/40 to-transparent">
+                            <button class="bg-brand-crudo text-brand-marron font-serif px-6 py-2 rounded-full hover:bg-brand-turquesa hover:text-white transition shadow-lg text-sm">Ver Detalle</button>
+                        </div>
+                        <div class="absolute top-3 right-3 bg-brand-verde text-white text-xs px-2 py-1 rounded font-medium">Eco-Wool</div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-serif text-lg text-brand-marron">Cardigan Bosque</h3>
+                        <p class="text-sm text-brand-gris">Tejido a palillo · Verde Lenga</p>
+                        <p class="mt-2 font-medium text-brand-turquesa">$85.000</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group relative fade-in-up" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab6?q=80&w=600&auto=format&fit=crop" alt="Gorro Patagonia" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center pb-8 bg-gradient-to-t from-black/40 to-transparent">
+                            <button class="bg-brand-crudo text-brand-marron font-serif px-6 py-2 rounded-full hover:bg-brand-turquesa hover:text-white transition shadow-lg text-sm">Ver Detalle</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-serif text-lg text-brand-marron">Gorro Andino</h3>
+                        <p class="text-sm text-brand-gris">Lana merino · Crudo Natural</p>
+                        <p class="mt-2 font-medium text-brand-turquesa">$35.000</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group relative fade-in-up" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1606166325695-502a94f53582?q=80&w=600&auto=format&fit=crop" alt="Chaleco Turquesa" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center pb-8 bg-gradient-to-t from-black/40 to-transparent">
+                            <button class="bg-brand-crudo text-brand-marron font-serif px-6 py-2 rounded-full hover:bg-brand-turquesa hover:text-white transition shadow-lg text-sm">Ver Detalle</button>
+                        </div>
+                        <div class="absolute top-3 left-3 bg-brand-turquesa text-white text-xs px-2 py-1 rounded font-medium">Best Seller</div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-serif text-lg text-brand-marron">Maxi Bufanda Glaciar</h3>
+                        <p class="text-sm text-brand-gris">Telar maría · Turquesa</p>
+                        <p class="mt-2 font-medium text-brand-turquesa">$45.000</p>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group relative fade-in-up" style="transition-delay: 300ms;">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1620799140408-ed5341cd2431?q=80&w=600&auto=format&fit=crop" alt="Sweater Rustico" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center pb-8 bg-gradient-to-t from-black/40 to-transparent">
+                            <button class="bg-brand-crudo text-brand-marron font-serif px-6 py-2 rounded-full hover:bg-brand-turquesa hover:text-white transition shadow-lg text-sm">Ver Detalle</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-serif text-lg text-brand-marron">Sweater Tierra</h3>
+                        <p class="text-sm text-brand-gris">Punto grueso · Marrón</p>
+                        <p class="mt-2 font-medium text-brand-turquesa">$90.000</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-16 text-center">
+                <a href="#" class="inline-block border border-brand-marron text-brand-marron px-10 py-3 rounded-full hover:bg-brand-marron hover:text-white transition duration-300 font-serif">Ver toda la tienda</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshop/Community Section -->
+    <section class="py-20 relative bg-brand-marron text-brand-crudo" id="talleres">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/10 flex flex-col md:flex-row items-center gap-10">
+                <div class="w-full md:w-1/2 text-left">
+                    <span class="font-script text-3xl text-brand-turquesa mb-2 block">El Sueño en Acción</span>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-4">Aprende a tejer, sana el alma</h2>
+                    <p class="text-brand-crudo/80 mb-6 leading-relaxed">
+                        Nuestros talleres son espacios llenos de colores y fibras naturales donde niñas y adultos descubren que cada punto es una forma de meditación activa. Únete a nuestra comunidad en Coyhaique.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="text-brand-verde w-5 h-5"></i> Clases de palillo y crochet</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="text-brand-verde w-5 h-5"></i> Materiales naturales incluidos</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle" class="text-brand-verde w-5 h-5"></i> Ambiente de sanación y apoyo</li>
+                    </ul>
+                    <button class="bg-brand-crudo text-brand-marron px-8 py-3 rounded-full font-bold hover:bg-brand-turquesa hover:text-white transition duration-300">
+                        Inscribirme al próximo taller
+                    </button>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1604505676707-160c874df12a?q=80&w=800&auto=format&fit=crop" alt="Taller de tejido" class="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition duration-500 border-4 border-brand-crudo/20">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="py-16 bg-brand-lavanda/20">
+        <div class="max-w-4xl mx-auto px-4 text-center fade-in-up">
+            <i data-lucide="quote" class="w-10 h-10 text-brand-turquesa mx-auto mb-6 opacity-50"></i>
+            <p class="font-serif text-xl md:text-2xl text-brand-marron italic leading-relaxed mb-6">
+                "Compré un chaleco para mi madre y al recibirlo sentí el cariño en el empaque y en el tejido. Es un pedazo de sur que ahora vive en Santiago. Gracias por tejer con tanto amor."
+            </p>
+            <div class="flex items-center justify-center gap-4">
+                <div class="w-12 h-12 bg-gray-300 rounded-full overflow-hidden">
+                     <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop" alt="Cliente" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                    <p class="font-bold text-brand-verde text-sm">Carolina M.</p>
+                    <p class="text-xs text-brand-gris">Cliente desde Santiago</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-verde text-brand-crudo pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                    <span class="font-script text-3xl text-brand-turquesa mb-4 block">Corazones Abrigados</span>
+                    <p class="text-sm text-brand-crudo/80 mb-6">
+                        Tejiendo historias desde la Patagonia chilena. Recuperando la tradición, un punto a la vez.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-brand-turquesa transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="hover:text-brand-turquesa transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="#" class="hover:text-brand-turquesa transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-serif text-lg mb-6 border-b border-brand-turquesa/30 inline-block pb-2">Explora</h4>
+                    <ul class="space-y-3 text-sm text-brand-crudo/80">
+                        <li><a href="#" class="hover:text-white transition">Tienda Online</a></li>
+                        <li><a href="#" class="hover:text-white transition">Nuestros Talleres</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sobre Nosotras</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog de Tejido</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-serif text-lg mb-6 border-b border-brand-turquesa/30 inline-block pb-2">Contacto</h4>
+                    <ul class="space-y-3 text-sm text-brand-crudo/80">
+                        <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-1"></i> Coyhaique, Región de Aysén</li>
+                        <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> contacto@corazonesabrigados.cl</li>
+                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +56 9 1234 5678</li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-serif text-lg mb-6 border-b border-brand-turquesa/30 inline-block pb-2">Únete al tejido</h4>
+                    <p class="text-xs text-brand-crudo/70 mb-4">Recibe novedades y descuentos especiales.</p>
+                    <form class="flex flex-col gap-2">
+                        <input type="email" placeholder="Tu correo electrónico" class="bg-white/10 border border-brand-turquesa/30 rounded px-4 py-2 text-sm text-white placeholder-white/50 focus:outline-none focus:border-brand-turquesa">
+                        <button class="bg-brand-turquesa text-white text-sm font-bold py-2 rounded hover:bg-brand-crudo hover:text-brand-verde transition">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-xs text-brand-crudo/60 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2024 Corazones Abrigados. Todos los derechos reservados.</p>
+                <p class="mt-2 md:mt-0">Diseñado con amor en el Sur del Mundo.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Scroll Animation (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            fadeElements.forEach(el => observer.observe(el));
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+                nav.classList.replace('h-20', 'h-16');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.replace('h-16', 'h-20');
+            }
+        });
+    </script>
+</body>
+</html>

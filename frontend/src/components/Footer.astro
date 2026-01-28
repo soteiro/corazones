@@ -1,0 +1,58 @@
+---
+// Componente Footer - Pie de página con enlaces y newsletter
+---
+
+<footer class="bg-verde text-crudo pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <!-- Brand -->
+            <div class="col-span-1 md:col-span-1">
+                <span class="font-script text-3xl text-turquesa mb-4 block">Corazones Abrigados</span>
+                <p class="text-sm text-crudo/80 mb-6">
+                    Tejiendo historias desde la Patagonia chilena. Recuperando la tradición, un punto a la vez.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-turquesa transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-turquesa transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-turquesa transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h4 class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">Explora</h4>
+                <ul class="space-y-3 text-sm text-crudo/80">
+                    <li><a href="#" class="hover:text-white transition">Tienda Online</a></li>
+                    <li><a href="#" class="hover:text-white transition">Nuestros Talleres</a></li>
+                    <li><a href="#" class="hover:text-white transition">Sobre Nosotras</a></li>
+                    <li><a href="#" class="hover:text-white transition">Blog de Tejido</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h4 class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">Contacto</h4>
+                <ul class="space-y-3 text-sm text-crudo/80">
+                    <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-1"></i> Coyhaique, Región de Aysén</li>
+                    <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> contacto@corazonesabrigados.cl</li>
+                    <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +56 9 1234 5678</li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div>
+                <h4 class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">Únete al tejido</h4>
+                <p class="text-xs text-crudo/70 mb-4">Recibe novedades y descuentos especiales.</p>
+                <form class="flex flex-col gap-2">
+                    <input type="email" placeholder="Tu correo electrónico" class="bg-white/10 border border-turquesa/30 rounded px-4 py-2 text-sm text-white placeholder-white/50 focus:outline-none focus:border-turquesa">
+                    <button class="bg-turquesa text-white text-sm font-bold py-2 rounded hover:bg-crudo hover:text-verde transition">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 text-center text-xs text-crudo/60 flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2024 Corazones Abrigados. Todos los derechos reservados.</p>
+            <p class="mt-2 md:mt-0">Diseñado con amor en el Sur del Mundo.</p>
+        </div>
+    </div>
+</footer>

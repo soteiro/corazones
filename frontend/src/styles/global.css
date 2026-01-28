@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+@theme {
+  --color-crudo: #F9F7F2;
+  --color-lavanda: #E6E6FA;
+  --color-turquesa: #2C8C99;
+  --color-verde: #5D7052;
+  --color-marron: #8B5A2B;
+  --color-gris: #708090;
+}
+
+/* Estilos personalizados para suavidad y texturas */
+body {
+    background-color: #F9F7F2;
+    background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png'); 
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #F9F7F2; 
+}
+::-webkit-scrollbar-thumb {
+    background: #8B5A2B; 
+    border-radius: 4px;
+}

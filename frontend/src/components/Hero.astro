@@ -1,0 +1,30 @@
+---
+// Componente Hero - Sección principal con imagen de fondo y CTA
+---
+
+<header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1543851724-811c0393284a?q=80&w=1920&auto=format&fit=crop" alt="Mujer tejiendo en la Patagonia" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-gris/30 via-transparent to-crudo/90"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in-up mt-20">
+        <p class="font-script text-3xl md:text-5xl text-white mb-4 drop-shadow-md">Un abrazo emocional</p>
+        <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 drop-shadow-lg tracking-tight leading-tight">
+            Tejidos con Alma <br> de la Patagonia
+        </h1>
+        <p class="text-white/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto drop-shadow-md">
+            Entrelazamos historias, memorias y la energía de la naturaleza en cada punto. Hecho a mano en Coyhaique.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#coleccion" class="bg-turquesa text-white px-8 py-3 rounded-full font-serif italic hover:bg-white hover:text-turquesa transition duration-300 shadow-lg border-2 border-transparent hover:border-turquesa">
+                Explorar Colección
+            </a>
+            <a href="#historia" class="bg-white/20 backdrop-blur-sm text-white border-2 border-white px-8 py-3 rounded-full font-serif italic hover:bg-white hover:text-marron transition duration-300">
+                Nuestro Sueño
+            </a>
+        </div>
+    </div>
+</header>
