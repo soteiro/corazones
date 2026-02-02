@@ -258,13 +258,13 @@ Para que sea **tu espacio**:
 
 ## ✅ Lista de Verificación Antes de Empezar
 
-- [ ] Cuenta de Sanity creada
-- [ ] Proyecto en Sanity Cloud configurado
-- [ ] Esquemas de productos definidos
-- [ ] Esquemas de categorías definidos
-- [ ] Esquemas de páginas (Sobre Mí, Inicio) definidos
-- [ ] Configuración general creada
-- [ ] Studio personalizado y fácil de usar
+- [x] Cuenta de Sanity creada
+- [x] Proyecto en Sanity Cloud configurado
+- [x] Esquemas de productos definidos
+- [x] Esquemas de categorías definidos
+- [x] Esquemas de páginas (Sobre Mí, Inicio) definidos
+- [x] Configuración general creada
+- [x] Studio personalizado y fácil de usar
 - [ ] Conexión frontend-backend probada
 
 ---

@@ -17,13 +17,11 @@ const { title, description = "Tejidos con alma de la Patagonia" } = Astro.props;
 	<meta name="description" content={description}>
 	<title>{title} | Corazones Abrigados</title>
 	
-	<!-- Google Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+	<!-- Fuentes locales -->
+	<link rel="stylesheet" href="/fonts/fonts-local.css">
 	
-	<!-- Lucide Icons -->
-	<script src="https://unpkg.com/lucide@latest" defer></script>
+	<!-- Lucide Icons local -->
+	<script src="/lucide/lucide.min.js" defer></script>
 </head>
 <body class="font-sans text-brand-text antialiased overflow-x-hidden bg-brand-crudo bg-texture">
 	<slot />
