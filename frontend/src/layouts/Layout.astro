@@ -29,8 +29,8 @@ const { title, description = "Tejidos con alma de la Patagonia" } = Astro.props;
 	<script>
 		// Initialize Lucide Icons
 		document.addEventListener('DOMContentLoaded', () => {
-			if (window.lucide) {
-				window.lucide.createIcons();
+			if ((window as any).lucide) {
+				(window as any).lucide.createIcons();
 			}
 		});
 	</script>
