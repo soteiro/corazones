@@ -9,13 +9,34 @@
   --color-gris: #708090;
 }
 
-/* Estilos personalizados para suavidad y texturas */
+/* Prevent horizontal scroll on mobile */
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
     background-color: #F9F7F2;
     background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png'); 
 }
 
-.fade-in-up {
+/* Smooth touch scrolling on iOS */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent elements from causing horizontal overflow */
+img,
+video,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* .fade-in-up {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -24,14 +45,14 @@ body {
 .visible {
     opacity: 1;
     transform: translateY(0);
-}
+} */
 
-/* Smooth scroll behavior */
+/* Smooth scroll behavior
 html {
     scroll-behavior: smooth;
-}
+} */
 
-/* Custom Scrollbar */
+/* Custom Scrollbar
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -41,4 +62,4 @@ html {
 ::-webkit-scrollbar-thumb {
     background: #8B5A2B; 
     border-radius: 4px;
-}
+} */
