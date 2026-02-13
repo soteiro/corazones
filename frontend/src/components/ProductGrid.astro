@@ -1,58 +1,90 @@
 ---
-// Componente ProductGrid - Grid de productos con tarjetas
-import ProductCard from './ProductCard.astro';
+// Componente ProductGrid - Grid de productos destacados desde Sanity
+import ProductCard from "./ProductCard.astro";
+import { sanityFetch } from "../lib/sanity";
+import { urlFor } from "../lib/image";
+
+// Traer productos destacados
+const productos = await sanityFetch(`
+  *[_type == "producto" && destacado == true][0..3] {
+    _id,
+    nombre,
+    slug,
+    imagenes,
+    descripcion,
+    precio,
+    estado,
+    categoria->{ titulo }
+  }
+`);
+
+const config = await sanityFetch(`
+  *[_type == "configuracion"][0]{
+    whatsapp
+  }
+`);
+
+const formatPrecio = (precio: number) =>
+  new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(
+    precio,
+  );
+
+const getWhatsappUrl = (nombreProducto: string) => {
+  const numero = config?.whatsapp?.numero?.replace(/\+/g, "") || "";
+  const mensaje = encodeURIComponent(
+    `Hola! Me interesa el producto: ${nombreProducto}`,
+  );
+  return `https://wa.me/${numero}?text=${mensaje}`;
+};
 ---
 
 <section class="py-24 bg-crudo relative" id="coleccion">
-    <div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
-        <span class="font-script text-3xl text-verde">Favoritos del Sur</span>
-        <h2 class="font-serif text-4xl text-marron mt-2">Abrigo con Identidad</h2>
-        <p class="text-gris mt-4">Piezas únicas creadas con lana natural y diseños contemporáneos.</p>
-    </div>
+  <div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
+    <span class="font-script text-3xl text-verde">Favoritos del Sur</span>
+    <h2 class="font-serif text-4xl text-marron mt-2">Abrigo con Identidad</h2>
+    <p class="text-gris mt-4">
+      Piezas únicas creadas con lana natural y diseños contemporáneos.
+    </p>
+  </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {
+      productos.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            
-            <ProductCard 
-                image="https://images.unsplash.com/photo-1598528739190-6715f5c40047?q=80&w=600&auto=format&fit=crop"
-                title="Cardigan Bosque"
-                description="Tejido a palillo · Verde Lenga"
-                price="$85.000"
-                badge="Eco-Wool"
-                badgeColor="verde"
-                delay="0ms"
-            />
-
-            <ProductCard 
-                image="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab6?q=80&w=600&auto=format&fit=crop"
-                title="Gorro Andino"
-                description="Lana merino · Crudo Natural"
-                price="$35.000"
-                delay="100ms"
-            />
-
-            <ProductCard 
-                image="https://images.unsplash.com/photo-1606166325695-502a94f53582?q=80&w=600&auto=format&fit=crop"
-                title="Maxi Bufanda Glaciar"
-                description="Telar maría · Turquesa"
-                price="$45.000"
-                badge="Best Seller"
-                badgeColor="turquesa"
-                delay="200ms"
-            />
-
-            <ProductCard 
-                image="https://images.unsplash.com/photo-1620799140408-ed5341cd2431?q=80&w=600&auto=format&fit=crop"
-                title="Sweater Tierra"
-                description="Punto grueso · Marrón"
-                price="$90.000"
-                delay="300ms"
-            />
-
+          {productos.map((producto: any, index: number) => {
+            const imageSrc = producto.imagenes?.[0]
+              ? urlFor(producto.imagenes[0]).width(600).height(800).url()
+              : "https://images.unsplash.com/photo-1598528739190-6715f5c40047?q=80&w=600&auto=format&fit=crop";
+            return (
+              <ProductCard
+                image={imageSrc}
+                title={producto.nombre}
+                description={
+                  producto.descripcion?.substring(0, 50) +
+                    (producto.descripcion?.length > 50 ? "..." : "") || ""
+                }
+                price={formatPrecio(producto.precio)}
+                delay={`${index * 100}ms`}
+                whatsappUrl={getWhatsappUrl(producto.nombre)}
+              />
+            );
+          })}
         </div>
-        
-        <div class="mt-16 text-center">
-            <a href="#" class="inline-block border border-marron text-marron px-10 py-3 rounded-full hover:bg-marron hover:text-white transition duration-300 font-serif">Ver toda la tienda</a>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-gris">
+            Próximamente agregaremos productos destacados.
+          </p>
         </div>
+      )
+    }
+
+    <div class="mt-16 text-center">
+      <a
+        href="/catalogo"
+        class="inline-block border border-marron text-marron px-10 py-3 rounded-full hover:bg-marron hover:text-white transition duration-300 font-serif"
+        >Ver toda la tienda</a
+      >
     </div>
+  </div>
 </section>

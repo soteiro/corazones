@@ -1,48 +1,124 @@
 ---
-// Componente Footer - Pie de página con enlaces y newsletter
+// Componente Footer - Pie de página con datos dinámicos desde Sanity
+import { sanityFetch } from "../lib/sanity";
+
+const config = await sanityFetch(`
+  *[_type == "configuracion"][0]{
+    nombreSitio,
+    descripcion,
+    email,
+    telefono,
+    direccion,
+    instagram,
+    whatsapp
+  }
+`);
+
+const nombreSitio = config?.nombreSitio || "Corazones Abrigados";
+const descripcionSitio =
+  config?.descripcion ||
+  "Tejiendo historias desde la Patagonia chilena. Recuperando la tradición, un punto a la vez.";
+const emailContacto = config?.email || "contacto@corazonesabrigados.cl";
+const telefono = config?.telefono || "+56 9 1234 5678";
+const direccion = config?.direccion || "Coyhaique, Región de Aysén";
+const instagramUrl = config?.instagram?.url || "#";
+const whatsappNumero = config?.whatsapp?.numero?.replace(/\+/g, "") || "";
 ---
 
 <footer class="bg-verde text-crudo pt-16 pb-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <!-- Brand -->
-            <div class="col-span-1 md:col-span-1">
-                <span class="font-script text-3xl text-turquesa mb-4 block">Corazones Abrigados</span>
-                <p class="text-sm text-crudo/80 mb-6">
-                    Tejiendo historias desde la Patagonia chilena. Recuperando la tradición, un punto a la vez.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-turquesa transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="hover:text-turquesa transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="#" class="hover:text-turquesa transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
-                </div>
-            </div>
-
-            <!-- Links -->
-            <div>
-                <h4 class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">Explora</h4>
-                <ul class="space-y-3 text-sm text-crudo/80">
-                    <li><a href="#" class="hover:text-white transition">Catálogo Online</a></li>
-                    <li><a href="#" class="hover:text-white transition">Acerca de</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div>
-                <h4 class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">Contacto</h4>
-                <ul class="space-y-3 text-sm text-crudo/80">
-                    <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-1"></i> Coyhaique, Región de Aysén</li>
-                    <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> contacto@corazonesabrigados.cl</li>
-                    <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +56 9 1234 5678</li>
-                </ul>
-            </div>
-
-        
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div class="col-span-1 md:col-span-1">
+        <span class="font-script text-3xl text-turquesa mb-4 block"
+          >{nombreSitio}</span
+        >
+        <p class="text-sm text-crudo/80 mb-6">
+          {descripcionSitio}
+        </p>
+        <div class="flex space-x-4">
+          {
+            instagramUrl !== "#" && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-turquesa transition">
+                <i data-lucide="instagram" class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
+            whatsappNumero && (
+              <a
+                href={`https://wa.me/${whatsappNumero}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-turquesa transition">
+                <i data-lucide="message-circle" class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
+            emailContacto && (
+              <a
+                href={`mailto:${emailContacto}`}
+                class="hover:text-turquesa transition">
+                <i data-lucide="mail" class="w-5 h-5" />
+              </a>
+            )
+          }
         </div>
+      </div>
 
-        <div class="border-t border-white/10 pt-8 text-center text-xs text-crudo/60 flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; {new Date().getFullYear()} Corazones Abrigados. Todos los derechos reservados.</p>
-            <p class="mt-2 md:mt-0">Diseñado con amor en el Sur del Mundo.</p>
-        </div>
+      <!-- Links -->
+      <div>
+        <h4
+          class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">
+          Explora
+        </h4>
+        <ul class="space-y-3 text-sm text-crudo/80">
+          <li>
+            <a href="/catalogo" class="hover:text-white transition"
+              >Catálogo Online</a>
+          </li>
+          <li>
+            <a href="/acercade" class="hover:text-white transition"
+              >Acerca de</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4
+          class="font-serif text-lg mb-6 border-b border-turquesa/30 inline-block pb-2">
+          Contacto
+        </h4>
+        <ul class="space-y-3 text-sm text-crudo/80">
+          <li class="flex items-start gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4 mt-1"></i>
+            {direccion}
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            {emailContacto}
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="phone" class="w-4 h-4"></i>
+            {telefono}
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <div
+      class="border-t border-white/10 pt-8 text-center text-xs text-crudo/60 flex flex-col md:flex-row justify-between items-center">
+      <p>
+        &copy; {new Date().getFullYear()}
+        {nombreSitio}. Todos los derechos reservados.
+      </p>
+      <p class="mt-2 md:mt-0">Diseñado con amor en el Sur del Mundo.</p>
+    </div>
+  </div>
 </footer>

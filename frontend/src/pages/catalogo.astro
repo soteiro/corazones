@@ -1,0 +1,272 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PromoBar from "../components/PromoBar.astro";
+import Header from "../components/Header.astro";
+import ProductCard from "../components/ProductCard.astro";
+import Footer from "../components/Footer.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
+import { sanityFetch } from "../lib/sanity";
+import { urlFor } from "../lib/image";
+
+// Fetch productos y configuración desde Sanity
+const productos = await sanityFetch(`
+  *[_type == "producto"] | order(_createdAt desc) {
+    _id,
+    nombre,
+    slug,
+    imagenes,
+    descripcion,
+    precio,
+    estado,
+    destacado,
+    etiquetas,
+    materiales,
+    categoria->{ titulo, slug }
+  }
+`);
+
+const config = await sanityFetch(`
+  *[_type == "configuracion"][0]{
+    whatsapp
+  }
+`);
+
+// Extraer categorías únicas de los productos
+const categoriasSet = new Set<string>();
+productos.forEach((p: any) => {
+  if (p.categoria?.titulo) {
+    categoriasSet.add(p.categoria.titulo);
+  }
+});
+const categorias = Array.from(categoriasSet);
+
+// Helpers
+const formatPrecio = (precio: number) =>
+  new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(
+    precio,
+  );
+
+const getWhatsappUrl = (nombreProducto: string) => {
+  const numero = config?.whatsapp?.numero?.replace(/\+/g, "") || "";
+  const mensaje = encodeURIComponent(
+    `Hola! Me interesa el producto: ${nombreProducto}`,
+  );
+  return `https://wa.me/${numero}?text=${mensaje}`;
+};
+
+const getBadge = (producto: any) => {
+  if (producto.estado === "vendido")
+    return { text: "Vendido", color: "verde" as const };
+  if (producto.estado === "a-pedido")
+    return { text: "A Pedido", color: "turquesa" as const };
+  if (producto.destacado)
+    return { text: "Destacado", color: "turquesa" as const };
+  return null;
+};
+---
+
+<Layout
+  title="Catálogo"
+  description="Explora nuestra colección completa de tejidos artesanales hechos a mano desde Coyhaique, Patagonia">
+  <PromoBar />
+  <Header />
+
+  <!-- Hero Banner Catálogo -->
+  <section
+    class="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1558171813-4c088753af8f?q=80&w=1920&auto=format&fit=crop"
+        alt="Colección de tejidos patagónicos"
+        class="w-full h-full object-cover"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-gris/40 via-gris/20 to-crudo">
+      </div>
+    </div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <span
+        class="font-script text-3xl md:text-4xl text-white drop-shadow-md block mb-2"
+        >Explora cada hilo</span
+      >
+      <h1
+        class="font-serif text-4xl md:text-6xl text-white font-bold drop-shadow-lg tracking-tight">
+        Nuestra Colección
+      </h1>
+      <p
+        class="text-white/85 text-base md:text-lg font-light mt-4 max-w-2xl mx-auto drop-shadow-md">
+        Piezas únicas tejidas a mano con lana natural en la Patagonia chilena.
+        Cada creación lleva el alma del sur.
+      </p>
+      <!-- Breadcrumb decorativo -->
+      <div
+        class="mt-6 flex items-center justify-center gap-2 text-white/70 text-sm">
+        <a href="/" class="hover:text-white transition">Inicio</a>
+        <span>/</span>
+        <span class="text-white font-medium">Catálogo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra de Filtros por Categoría (dinámica) -->
+  <section
+    class="py-8 bg-crudo border-b border-gris/10 sticky top-20 z-40 backdrop-blur-md bg-crudo/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-center gap-3" id="filter-bar">
+        <button
+          data-filter="all"
+          class="filter-btn active px-5 py-2 rounded-full font-serif text-sm transition duration-300 border border-marron bg-marron text-white">
+          Todos
+        </button>
+        {
+          categorias.map((cat) => (
+            <button
+              data-filter={cat.toLowerCase().replace(/\s+/g, "-")}
+              class="filter-btn px-5 py-2 rounded-full font-serif text-sm transition duration-300 border border-gris/30 text-gris hover:border-turquesa hover:text-turquesa">
+              {cat}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid de Productos -->
+  <section class="py-16 bg-crudo" id="productos">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Contador de resultados -->
+      <div class="mb-8 flex items-center justify-between">
+        <p class="text-gris text-sm font-serif" id="product-count">
+          Mostrando <span class="font-bold text-marron">{productos.length}</span
+          > productos
+        </p>
+      </div>
+
+      {
+        productos.length > 0 ? (
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            id="product-grid">
+            {productos.map((producto: any, index: number) => {
+              const badge = getBadge(producto);
+              const categoriaSlug =
+                producto.categoria?.titulo
+                  ?.toLowerCase()
+                  .replace(/\s+/g, "-") || "";
+              const imageSrc = producto.imagenes?.[0]
+                ? urlFor(producto.imagenes[0]).width(600).height(800).url()
+                : "https://images.unsplash.com/photo-1598528739190-6715f5c40047?q=80&w=600&auto=format&fit=crop";
+              return (
+                <div data-category={categoriaSlug}>
+                  <ProductCard
+                    image={imageSrc}
+                    title={producto.nombre}
+                    description={
+                      producto.descripcion?.substring(0, 50) +
+                        (producto.descripcion?.length > 50 ? "..." : "") || ""
+                    }
+                    price={formatPrecio(producto.precio)}
+                    badge={badge?.text}
+                    badgeColor={badge?.color}
+                    delay={`${(index % 4) * 100}ms`}
+                    whatsappUrl={getWhatsappUrl(producto.nombre)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="text-center py-20">
+            <p class="font-script text-3xl text-turquesa mb-4">Pronto...</p>
+            <p class="text-gris text-lg">
+              Estamos preparando nuestra colección. ¡Vuelve pronto!
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-16 bg-lavanda/20">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <span class="font-script text-3xl text-turquesa block mb-2"
+        >¿No encuentras lo que buscas?</span
+      >
+      <h2 class="font-serif text-3xl md:text-4xl text-marron font-bold mb-4">
+        Creamos piezas a tu medida
+      </h2>
+      <p class="text-gris mb-8 leading-relaxed">
+        Cada persona es única y merece un tejido que cuente su historia.
+        Escríbenos por WhatsApp y conversemos sobre tu pieza ideal.
+      </p>
+      {
+        config?.whatsapp?.numero && (
+          <a
+            href={`https://wa.me/${config.whatsapp.numero.replace(/\+/g, "")}?text=${encodeURIComponent(config.whatsapp.mensajePredeterminado || "Hola! Me interesan tus productos tejidos")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-turquesa text-white px-8 py-3 rounded-full font-serif italic hover:bg-white hover:text-turquesa transition duration-300 shadow-lg border-2 border-transparent hover:border-turquesa">
+            <i data-lucide="message-circle" class="w-5 h-5" />
+            Conversemos por WhatsApp
+          </a>
+        )
+      }
+    </div>
+  </section>
+
+  <WhatsappButton />
+  <Footer />
+
+  <!-- Script de Filtrado -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const productItems = document.querySelectorAll(
+        "#product-grid > [data-category]",
+      );
+      const productCount = document.querySelector("#product-count span");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.getAttribute("data-filter");
+
+          // Update active button styles
+          filterBtns.forEach((b) => {
+            b.classList.remove(
+              "active",
+              "bg-marron",
+              "text-white",
+              "border-marron",
+            );
+            b.classList.add("border-gris/30", "text-gris");
+          });
+          btn.classList.add(
+            "active",
+            "bg-marron",
+            "text-white",
+            "border-marron",
+          );
+          btn.classList.remove("border-gris/30", "text-gris");
+
+          // Filter products
+          let visibleCount = 0;
+          productItems.forEach((item) => {
+            const category = item.getAttribute("data-category");
+            if (filter === "all" || category === filter) {
+              (item as HTMLElement).style.display = "";
+              visibleCount++;
+            } else {
+              (item as HTMLElement).style.display = "none";
+            }
+          });
+
+          // Update count
+          if (productCount) {
+            productCount.textContent = visibleCount.toString();
+          }
+        });
+      });
+    });
+  </script>
+</Layout>

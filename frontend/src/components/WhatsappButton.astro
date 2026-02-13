@@ -1,9 +1,25 @@
+---
+// Componente WhatsappButton - Botón flotante de WhatsApp con datos de Sanity
+import { sanityFetch } from "../lib/sanity";
+
+const config = await sanityFetch(`
+  *[_type == "configuracion"][0]{
+    whatsapp
+  }
+`);
+
+const numero = config?.whatsapp?.numero?.replace(/\+/g, "") || "12345679";
+const mensaje = encodeURIComponent(
+  config?.whatsapp?.mensajePredeterminado ||
+    "Hola! Me interesan tus productos tejidos",
+);
+const href = `https://wa.me/${numero}?text=${mensaje}`;
+---
+
 <a
-    href="https://wa.me/12345679"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="fixed bottom-6 right-4 sm:bottom-8 sm:right-6 md:bottom-10 md:right-8 bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all transform hover:scale-110 z-50"
-    
->
-    <img src="/whatsappIcon.svg" alt="WhatsApp" class="w-5 h-5 sm:w-6 sm:h-6" />
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-6 right-4 sm:bottom-8 sm:right-6 md:bottom-10 md:right-8 bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all transform hover:scale-110 z-50">
+  <img src="/whatsappIcon.svg" alt="WhatsApp" class="w-5 h-5 sm:w-6 sm:h-6" />
 </a>
