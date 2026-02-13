@@ -1,4 +1,8 @@
 ---
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import PromoBar from '@/components/PromoBar.astro';
+import WhatsappButton from '@/components/WhatsappButton.astro';	
 import '@styles/global.css';
 
 interface Props {
@@ -24,8 +28,11 @@ const { title, description = "Tejidos con alma de la Patagonia" } = Astro.props;
 	<script src="/lucide/lucide.min.js" defer></script>
 </head>
 <body class="font-sans text-brand-text antialiased overflow-x-hidden bg-brand-crudo bg-texture">
+	<PromoBar />
+	<Header />
+	<WhatsappButton />
 	<slot />
-	
+	<Footer />
 	<script>
 		// Initialize Lucide Icons
 		document.addEventListener('DOMContentLoaded', () => {

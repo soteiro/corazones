@@ -1,10 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PromoBar from "../components/PromoBar.astro";
-import Header from "../components/Header.astro";
 import ProductCard from "../components/ProductCard.astro";
-import Footer from "../components/Footer.astro";
-import WhatsappButton from "../components/WhatsappButton.astro";
 import { sanityFetch } from "../lib/sanity";
 import { urlFor } from "../lib/image";
 
@@ -68,8 +64,7 @@ const getBadge = (producto: any) => {
 <Layout
   title="Catálogo"
   description="Explora nuestra colección completa de tejidos artesanales hechos a mano desde Coyhaique, Patagonia">
-  <PromoBar />
-  <Header />
+  
 
   <!-- Hero Banner Catálogo -->
   <section
@@ -210,13 +205,12 @@ const getBadge = (producto: any) => {
             <i data-lucide="message-circle" class="w-5 h-5" />
             Conversemos por WhatsApp
           </a>
-        )
+        )   
       }
     </div>
   </section>
 
-  <WhatsappButton />
-  <Footer />
+
 
   <!-- Script de Filtrado -->
   <script>
