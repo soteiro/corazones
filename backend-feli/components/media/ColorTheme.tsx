@@ -30,7 +30,7 @@ const ColorThemePreview = (props: Props) => {
 
   return (
     <StyledSpan background={background}>
-      {text && <span style={{color: text, fontSize: '1.5em', fontWeight: 600}}>T</span>}
+      {text && <span style={{color: text, fontSize: '7em', fontWeight: 600}}>T</span>}
     </StyledSpan>
   )
 }
