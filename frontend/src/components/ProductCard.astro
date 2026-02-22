@@ -18,9 +18,9 @@ const detailHref = whatsappUrl || `https://wa.me/?text=${encodeURIComponent(`Hol
 ---
 
 <div class="group relative fade-in-up" style={`transition-delay: ${delay};`}>
-    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white aspect-[3/4]">
+    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white aspect-3/4">
         <img src={image} alt={title} class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-        <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center pb-8 bg-gradient-to-t from-black/40 to-transparent">
+        <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center pb-8 bg-linear-to-t from-black/40 to-transparent">
             <a href={detailHref} target="_blank" rel="noopener noreferrer" class="bg-crudo text-marron font-serif px-6 py-2 rounded-full hover:bg-turquesa hover:text-white transition shadow-lg text-sm">Consultar</a>
         </div>
         {badge && (

@@ -18,7 +18,6 @@ import {menuLinksType} from './objects/global/menuLinksType'
 import {menuType} from './objects/global/menuType'
 import {notFoundPageType} from './objects/global/notFoundPageType'
 import {seoType} from './objects/seoType'
-import {testimonioType} from './documents/testimonio'
 
 // Objects used as annotations must be imported first
 const annotations = [linkEmailType, linkExternalType, linkInternalType, linkProductType]
@@ -40,7 +39,6 @@ const objects = [
   menuType,
   notFoundPageType,
   seoType,
-  testimonioType
 ]
 
 import {portableTextType} from './portableText/portableTextType'

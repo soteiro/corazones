@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 
 guia-inicial.md
+
+# Local Netlify folder
+.netlify
