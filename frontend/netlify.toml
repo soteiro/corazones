@@ -1,3 +1,11 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+# (Opcional) Variables de entorno específicas para producción (rama main)
+[context.production.environment]
+  # VITE_API_URL = "https://tu-api-produccion.com"
+
+# (Opcional) Variables para la rama dev (entorno de pruebas)
+[context.branch-deploy.environment]
+  # VITE_API_URL = "https://tu-api-development.com"
